@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const resumeRoutes = require('./routes/resomeRoutes');
 const aiRoutes = require('./routes/aiRoutes');
+const historyRoutes = require('./routes/historyRoutes');
 
 dotenv.config();
 connectDB();
@@ -17,6 +18,8 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/resume', resumeRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/history', historyRoutes);
+
 
 app.get('/', (req, res) => {
   res.send('SmartPrep AI backend running!');

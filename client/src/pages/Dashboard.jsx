@@ -1,4 +1,41 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 function Dashboard() {
+
+  const [history, setHistory] = useState([]);
+
+  useEffect(() => {
+
+    const fetchHistory = async () => {
+
+      try {
+
+        const token =
+          localStorage.getItem("token");
+
+        const res = await axios.get(
+
+          "http://localhost:5000/api/history",
+
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setHistory(res.data);
+
+      } catch (error) {
+
+        console.log(error);
+      }
+    };
+
+    fetchHistory();
+
+  }, []);
 
   const logout = () => {
 
@@ -16,46 +53,34 @@ function Dashboard() {
       </h1>
 
       <p className="text-gray-600 mb-10">
-        Welcome to SmartPrep AI
+        Previous AI Interview Sessions
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="space-y-6">
 
-        <div className="bg-white p-6 rounded-xl shadow-md">
+        {
+          history.map((item) => (
 
-          <h2 className="text-2xl font-bold">
-            Interviews
-          </h2>
+            <div
+              key={item._id}
+              className="bg-white p-6 rounded-xl shadow-md"
+            >
 
-          <p className="text-4xl mt-4">
-            12
-          </p>
+              <p className="text-sm text-gray-500 mb-4">
+                {
+                  new Date(
+                    item.createdAt
+                  ).toLocaleString()
+                }
+              </p>
 
-        </div>
+              <div className="whitespace-pre-wrap text-gray-700">
+                {item.questions.slice(0, 300)}...
+              </div>
 
-        <div className="bg-white p-6 rounded-xl shadow-md">
-
-          <h2 className="text-2xl font-bold">
-            Questions Solved
-          </h2>
-
-          <p className="text-4xl mt-4">
-            85
-          </p>
-
-        </div>
-
-        <div className="bg-white p-6 rounded-xl shadow-md">
-
-          <h2 className="text-2xl font-bold">
-            AI Score
-          </h2>
-
-          <p className="text-4xl mt-4">
-            92%
-          </p>
-
-        </div>
+            </div>
+          ))
+        }
 
       </div>
 

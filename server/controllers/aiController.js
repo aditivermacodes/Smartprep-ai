@@ -1,4 +1,5 @@
 const axios = require("axios");
+const Interview = require("../models/Interview");
 
 exports.generateQuestions = async (req, res) => {
 
@@ -62,6 +63,11 @@ exports.generateQuestions = async (req, res) => {
         message: "No AI response received",
       });
     }
+
+    await Interview.create({
+      user: req.user,
+      questions,
+    });
 
     res.status(200).json({
       questions,

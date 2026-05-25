@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("node:fs");
 const pdfParse = require("pdf-parse");
 
 exports.uploadResume = async (req, res) => {
@@ -7,7 +7,7 @@ exports.uploadResume = async (req, res) => {
 
         const filePath = req.file.path;
 
-        const dataBuffer = fs.readFileSync(filePath);
+        const dataBuffer = await fs.promises.readFile(filePath);
 
         const pdfData = await pdfParse(dataBuffer);
 

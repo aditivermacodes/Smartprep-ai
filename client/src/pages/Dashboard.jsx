@@ -16,7 +16,7 @@ function Dashboard() {
 
         const res = await axios.get(
 
-          "http://localhost:5000/api/history",
+          `${import.meta.env.VITE_API_URL}/api/history`,
 
           {
             headers: {

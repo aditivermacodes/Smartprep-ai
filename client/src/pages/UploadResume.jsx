@@ -28,7 +28,7 @@ function UploadResume() {
       // UPLOAD RESUME
       const uploadRes = await axios.post(
 
-        "http://localhost:5000/api/resume/upload",
+        `${import.meta.env.VITE_API_URL}/api/resume/upload`,
 
         formData,
 
@@ -47,7 +47,7 @@ function UploadResume() {
 
       const aiRes = await axios.post(
 
-        "http://localhost:5000/api/ai/generate",
+        `${import.meta.env.VITE_API_URL}/api/ai/generate`,
 
         {
           resumeText: extractedText,

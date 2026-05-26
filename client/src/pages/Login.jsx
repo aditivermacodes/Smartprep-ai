@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import {
+  useNavigate,
+  Link,
+} from "react-router-dom";
 
 function Login() {
 
@@ -12,6 +15,7 @@ function Login() {
   });
 
   const handleChange = (e) => {
+
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -29,7 +33,10 @@ function Login() {
         formData
       );
 
-      localStorage.setItem("token", res.data.token);
+      localStorage.setItem(
+        "token",
+        res.data.token
+      );
 
       alert("Login Successful");
 
@@ -37,17 +44,20 @@ function Login() {
 
     } catch (error) {
 
-      alert(error.response.data.message);
+      alert(
+        error.response?.data?.message ||
+        "Login failed"
+      );
     }
   };
 
   return (
 
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen bg-gray-100">
 
       <form
         onSubmit={handleSubmit}
-        className="w-96 p-6 shadow-lg rounded-lg"
+        className="w-96 p-8 shadow-lg rounded-xl bg-white"
       >
 
         <h2 className="text-3xl font-bold mb-6 text-center">
@@ -57,24 +67,43 @@ function Login() {
         <input
           type="email"
           name="email"
+          value={formData.email}
           placeholder="Email"
-          className="w-full border p-3 mb-4"
+          className="w-full border p-3 mb-4 rounded"
           onChange={handleChange}
+          required
         />
 
         <input
           type="password"
           name="password"
+          autoComplete="current-password"
+          value={formData.password}
           placeholder="Password"
-          className="w-full border p-3 mb-4"
+          className="w-full border p-3 mb-4 rounded"
           onChange={handleChange}
+          required
         />
 
         <button
-          className="bg-black text-white w-full p-3 rounded"
+          type="submit"
+          className="bg-black text-white w-full p-3 rounded hover:bg-gray-800 transition"
         >
           Login
         </button>
+
+        <p className="mt-4 text-center text-gray-600">
+
+          Don't have an account?{" "}
+
+          <Link
+            to="/register"
+            className="text-blue-500 font-semibold hover:underline"
+          >
+            Register
+          </Link>
+
+        </p>
 
       </form>
 

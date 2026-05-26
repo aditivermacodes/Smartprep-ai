@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
 
+  const navigate = useNavigate();
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
@@ -41,7 +43,7 @@ function Dashboard() {
 
     localStorage.removeItem("token");
 
-    window.location.href = "/login";
+    navigate("/login");
   };
 
   return (

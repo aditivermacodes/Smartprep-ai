@@ -19,6 +19,10 @@ function Sidebar() {
       name: "AI Interview",
       path: "/interview",
     },
+    {
+      name: "Interview History",
+      path: "/interview-history",
+    },
   ];
 
   return (

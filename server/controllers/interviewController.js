@@ -1,4 +1,5 @@
 const axios = require("axios");
+const InterviewSession = require("../models/InterviewSession");
 
 exports.chatInterview = async (req, res) => {
 
@@ -82,6 +83,20 @@ exports.chatInterview = async (req, res) => {
     const aiMessage =
       response.data.choices[0].message.content;
 
+    const updatedConversation = [
+        ...messages,
+        {
+            role: "ai",
+            text: aiMessage,
+            time: new Date(),
+        },
+    ];
+
+    await InterviewSession.create({
+        user: req.user,
+        messages: updatedConversation,
+    });
+
     res.status(200).json({
       reply: aiMessage,
     });
@@ -95,6 +110,27 @@ exports.chatInterview = async (req, res) => {
 
     res.status(500).json({
       message: "Interview AI failed",
+    });
+  }
+};
+
+exports.getSessions = async (req, res) => {
+
+  try {
+
+    const sessions =
+      await InterviewSession.find({
+
+        user: req.user,
+
+      }).sort({ createdAt: -1 });
+
+    res.status(200).json(sessions);
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: "Failed to fetch sessions",
     });
   }
 };

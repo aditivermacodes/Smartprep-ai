@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import DashboardLayout from "../Layouts/DashboardLayout";
 
 function UploadResume() {
 
@@ -76,7 +77,9 @@ function UploadResume() {
 
   return (
 
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-10">
+    <DashboardLayout>
+
+      <div className="min-h-screen bg-gray-100 flex flex-col items-center p-10">
 
       <h1 className="text-4xl font-bold mb-8">
         SmartPrep AI
@@ -130,8 +133,9 @@ function UploadResume() {
           </div>
           )
       }
+      </div>
 
-    </div>
+    </DashboardLayout>
   );
 }
 

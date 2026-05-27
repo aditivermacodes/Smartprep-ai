@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import DashboardLayout from "../Layouts/DashboardLayout";
 
 function Dashboard() {
 
@@ -48,7 +49,7 @@ function Dashboard() {
 
   return (
 
-    <div className="min-h-screen bg-gray-100 p-10">
+    <DashboardLayout>
 
       <h1 className="text-5xl font-bold mb-4">
         Dashboard
@@ -93,7 +94,7 @@ function Dashboard() {
         Logout
       </button>
 
-    </div>
+    </DashboardLayout>
   );
 }
 

@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UploadResume from "./pages/UploadResume";
+import Interview from "./pages/Interview";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
 
         <Route path="/upload-resume" element={<ProtectedRoute><UploadResume /></ProtectedRoute>} />
+
+        <Route path="/interview" element={<ProtectedRoute><Interview /></ProtectedRoute>} />
 
       </Routes>
 

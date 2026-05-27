@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
+import axios from "axios";
 
 function Interview() {
 
@@ -11,6 +12,8 @@ function Interview() {
   ]);
 
   const [input, setInput] = useState("");
+
+  const[loading, setLoading] = useState(false);
 
   const messagesEndRef = useRef(null);
 
@@ -24,20 +27,63 @@ function Interview() {
 
   }, [messages]);
 
-  const sendMessage = () => {
-
+  const sendMessage = async () => {
     if (!input.trim()) return;
 
-    setMessages((prev) => [
-      ...prev,
+    const userMessage = {
+      role: "user",
+      text: input,
+    };
 
-      {
-        role: "user",
-        text: input,
-      },
-    ]);
+    const updatedMessages = [
+      ...messages,
+      userMessage,
+    ];
+
+    setMessages(updatedMessages);
 
     setInput("");
+
+    try {
+
+      setLoading(true);
+
+      const token =
+        localStorage.getItem("token");
+
+      const res = await axios.post(
+
+        `${import.meta.env.VITE_API_URL}/api/interview/chat`,
+
+        {
+          messages: updatedMessages,
+        },
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const aiMessage = {
+        role: "ai",
+        text: res.data.reply,
+      };
+
+      setMessages((prev) => [
+        ...prev,
+        aiMessage,
+      ]);
+
+    } catch (error) {
+
+      console.log(error);
+
+    } finally {
+
+      setLoading(false);
+    }
   };
 
   return (
@@ -89,6 +135,13 @@ function Interview() {
               </div>
             ))
           }
+          {loading && (
+            <div className="mb-6 flex justify-start">
+              <div className="max-w-[75%] px-5 py-4 rounded-2xl whitespace-pre-wrap leading-7 bg-gray-100 text-gray-800 animate-pulse">
+                AI is typing...
+              </div>
+            </div>
+          )}
 
           <div ref={messagesEndRef}></div>
 
@@ -101,6 +154,11 @@ function Interview() {
           <input
             type="text"
             value={input}
+            onKeyDown={(e) => {
+              if(e.key === "Enter") {
+                sendMessage();
+              }
+            }}
             onChange={(e) =>
               setInput(e.target.value)
             }

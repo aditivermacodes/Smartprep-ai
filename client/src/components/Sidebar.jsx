@@ -14,11 +14,6 @@ function Sidebar() {
       name: "Upload Resume",
       path: "/upload-resume",
     },
-
-    {
-      name: "AI Interview",
-      path: "/interview",
-    },
   ];
 
   return (

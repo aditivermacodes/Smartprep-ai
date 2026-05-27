@@ -1,4 +1,5 @@
 import Sidebar from "../components/Sidebar";
+import Topbar from "../components/Topbar";
 
 function DashboardLayout({ children }) {
 
@@ -9,6 +10,8 @@ function DashboardLayout({ children }) {
       <Sidebar />
 
       <div className="flex-1 p-8 overflow-y-auto">
+        
+        <Topbar />
 
         {children}
 

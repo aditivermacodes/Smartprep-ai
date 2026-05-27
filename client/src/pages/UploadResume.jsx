@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import DashboardLayout from "../Layouts/DashboardLayout";
+import DashboardLayout from "../layouts/DashboardLayout";
 
 function UploadResume() {
 

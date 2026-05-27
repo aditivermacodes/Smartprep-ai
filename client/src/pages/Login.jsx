@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import PublicLayout from "../layouts/PublicLayout";
 import {
   useNavigate,
   Link,
@@ -52,6 +53,8 @@ function Login() {
   };
 
   return (
+
+    
 
     <div className="flex justify-center items-center h-screen bg-gray-100">
 

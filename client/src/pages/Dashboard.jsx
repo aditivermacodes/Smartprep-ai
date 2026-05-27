@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import DashboardLayout from "../Layouts/DashboardLayout";
+import DashboardLayout from "../layouts/DashboardLayout";
 
 function Dashboard() {
 
-  const navigate = useNavigate();
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
@@ -40,24 +38,21 @@ function Dashboard() {
 
   }, []);
 
-  const logout = () => {
-
-    localStorage.removeItem("token");
-
-    navigate("/login");
-  };
-
   return (
 
     <DashboardLayout>
 
-      <h1 className="text-5xl font-bold mb-4">
-        Dashboard
-      </h1>
+      <div className="mb-10">
 
-      <p className="text-gray-600 mb-10">
-        Previous AI Interview Sessions
-      </p>
+        <h2 className="text-4xl font-bold">
+          Previous AI Sessions
+        </h2>
+
+        <p className="text-gray-500 mt-2">
+          Review your interview history and AI-generated questions.
+        </p>
+
+      </div>
 
       <div className="space-y-6">
 
@@ -86,13 +81,6 @@ function Dashboard() {
         }
 
       </div>
-
-      <button
-        onClick={logout}
-        className="bg-red-500 text-white px-6 py-3 rounded-lg mt-10"
-      >
-        Logout
-      </button>
 
     </DashboardLayout>
   );

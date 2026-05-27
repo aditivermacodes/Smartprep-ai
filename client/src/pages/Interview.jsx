@@ -8,6 +8,7 @@ function Interview() {
     {
       role: "ai",
       text: "Welcome to SmartPrep AI Interview 👋\n\nTell me about yourself.",
+      time: new Date(),
     },
   ]);
 
@@ -33,6 +34,7 @@ function Interview() {
     const userMessage = {
       role: "user",
       text: input,
+      time: new Date(),
     };
 
     const updatedMessages = [
@@ -69,6 +71,7 @@ function Interview() {
       const aiMessage = {
         role: "ai",
         text: res.data.reply,
+        time: new Date(),
       };
 
       setMessages((prev) => [
@@ -129,7 +132,26 @@ function Interview() {
                       : "bg-gray-100 text-gray-800"
                   }`}
                 >
-                  {msg.text}
+                  <div className="space-y-3">
+                    {
+                      msg.text
+                        .split("\n")
+                        .map((line, i) => (
+
+                          <p key={i}>
+                            {line}
+                          </p>
+                        ))
+                    }
+                  </div>
+                  <p className="text-xs mt-3 opacity-70">
+                    {
+                      new Date(msg.time).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })
+                    }
+                  </p>
                 </div>
 
               </div>
@@ -138,7 +160,15 @@ function Interview() {
           {loading && (
             <div className="mb-6 flex justify-start">
               <div className="max-w-[75%] px-5 py-4 rounded-2xl whitespace-pre-wrap leading-7 bg-gray-100 text-gray-800 animate-pulse">
-                AI is typing...
+                <div className="flex items-center gap-2">
+
+                <div className="w-3 h-3 bg-gray-500 rounded-full animate-bounce"></div>
+
+                <div className="w-3 h-3 bg-gray-500 rounded-full animate-bounce delay-100"></div>
+
+                <div className="w-3 h-3 bg-gray-500 rounded-full animate-bounce delay-200"></div>
+
+              </div>
               </div>
             </div>
           )}
@@ -154,6 +184,7 @@ function Interview() {
           <input
             type="text"
             value={input}
+            diabled={loading}
             onKeyDown={(e) => {
               if(e.key === "Enter") {
                 sendMessage();
@@ -168,7 +199,12 @@ function Interview() {
 
           <button
             onClick={sendMessage}
-            className="bg-black hover:bg-gray-800 transition text-white px-8 rounded-2xl"
+            disabled={loading}
+            className={`px-8 rounded-2xl text-white transition ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-black hover:bg-gray-800"
+            }`}
           >
             Send
           </button>

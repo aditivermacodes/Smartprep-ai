@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 function Interview() {
 
@@ -126,24 +127,15 @@ function Interview() {
               >
 
                 <div
-                  className={`max-w-[75%] px-5 py-4 rounded-2xl whitespace-pre-wrap leading-7 ${
+                  className={`max-w-[75%] px-5 py-4 rounded-2xl leading-7 prose ${
                     msg.role === "user"
                       ? "bg-blue-600 text-white"
                       : "bg-gray-100 text-gray-800"
                   }`}
                 >
-                  <div className="space-y-3">
-                    {
-                      msg.text
-                        .split("\n")
-                        .map((line, i) => (
-
-                          <p key={i}>
-                            {line}
-                          </p>
-                        ))
-                    }
-                  </div>
+                  <ReactMarkdown>
+                    {msg.text}
+                  </ReactMarkdown>
                   <p className="text-xs mt-3 opacity-70">
                     {
                       new Date(msg.time).toLocaleTimeString([], {

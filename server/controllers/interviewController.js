@@ -44,6 +44,16 @@ Finally:
 - ask the next interview question
 
 Keep responses conversational and professional.
+
+Format responses using markdown.
+
+Use:
+- headings
+- bold text
+- bullet points
+- spacing
+
+Make responses visually clean and readable.
 `;
 
     const formattedMessages = [

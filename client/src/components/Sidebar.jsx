@@ -23,6 +23,10 @@ function Sidebar() {
       name: "Interview History",
       path: "/interview-history",
     },
+    {
+      name: "ATS Score",
+      path: "/ats-score",
+    }
   ];
 
   return (

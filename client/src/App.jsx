@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import UploadResume from "./pages/UploadResume";
 import Interview from "./pages/Interview";
 import InterviewHistory from "./pages/InterviewHistory";
+import ATSScore from "./pages/ATSSCore";
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
         <Route path="/interview" element={<ProtectedRoute><Interview /></ProtectedRoute>} />
 
         <Route path="/interview-history" element={<ProtectedRoute><InterviewHistory /></ProtectedRoute>} />
+
+        <Route path="/ats-score" element={<ProtectedRoute><ATSScore /></ProtectedRoute>} />
 
       </Routes>
 

@@ -1,5 +1,7 @@
 const axios = require("axios");
-const InterviewSession = require("../models/InterviewSession");
+
+const InterviewSession =
+  require("../models/InterviewSession");
 
 exports.chatInterview = async (req, res) => {
 
@@ -15,34 +17,34 @@ exports.chatInterview = async (req, res) => {
     }
 
     const systemPrompt = `
-        You are an expert software engineering interviewer.
+You are an expert software engineering interviewer.
 
-        Your responsibilities:
+Your responsibilities:
 
-        1. Conduct realistic technical interviews
-        2. Ask one question at a time
-        3. Evaluate the candidate's answers
-        4. Give professional feedback
-        5. Continue the interview naturally
+1. Conduct realistic technical interviews
+2. Ask one question at a time
+3. Evaluate the candidate's answers
+4. Give professional feedback
+5. Continue the interview naturally
 
-        For EVERY user answer:
+For EVERY user answer:
 
-        Provide:
+Provide:
 
-        Technical Accuracy Score: X/10
-        Communication Score: X/10
-        Confidence Score: X/10
+Technical Accuracy Score: X/10
+Communication Score: X/10
+Confidence Score: X/10
 
-        Then give:
-        - strengths
-        - weaknesses
-        - improvement suggestions
+Then give:
+- strengths
+- weaknesses
+- improvement suggestions
 
-        Finally:
-        - ask the next interview question
+Finally:
+- ask the next interview question
 
-        Keep responses conversational and professional.
-        `;
+Keep responses conversational and professional.
+`;
 
     const formattedMessages = [
 
@@ -84,17 +86,21 @@ exports.chatInterview = async (req, res) => {
       response.data.choices[0].message.content;
 
     const updatedConversation = [
-        ...messages,
-        {
-            role: "ai",
-            text: aiMessage,
-            time: new Date(),
-        },
+
+      ...messages,
+
+      {
+        role: "ai",
+        text: aiMessage,
+        time: new Date(),
+      },
     ];
 
     await InterviewSession.create({
-        user: req.user,
-        messages: updatedConversation,
+
+      user: req.user,
+
+      messages: updatedConversation,
     });
 
     res.status(200).json({
@@ -129,8 +135,73 @@ exports.getSessions = async (req, res) => {
 
   } catch (error) {
 
+    console.log(error);
+
     res.status(500).json({
       message: "Failed to fetch sessions",
+    });
+  }
+};
+
+exports.getAnalytics = async (req, res) => {
+
+  try {
+
+    const sessions =
+      await InterviewSession.find({
+        user: req.user,
+      });
+
+    const totalInterviews =
+      sessions.length;
+
+    const totalMessages =
+      sessions.reduce(
+
+        (acc, session) =>
+
+          acc + session.messages.length,
+
+        0
+      );
+
+    const averageMessages =
+      totalInterviews > 0
+        ? (
+            totalMessages /
+            totalInterviews
+          ).toFixed(1)
+        : 0;
+
+    const analyticsData =
+      sessions.map((session) => ({
+
+        date:
+          new Date(
+            session.createdAt
+          ).toLocaleDateString(),
+
+        messages:
+          session.messages.length,
+      }));
+
+    res.status(200).json({
+
+      totalInterviews,
+
+      totalMessages,
+
+      averageMessages,
+
+      analyticsData,
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      message: "Analytics failed",
     });
   }
 };

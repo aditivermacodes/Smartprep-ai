@@ -5,6 +5,7 @@ const router = express.Router();
 const {
   chatInterview,
   getSessions,
+  getAnalytics,
 } = require("../controllers/interviewController");
 
 const { protect } =
@@ -20,6 +21,12 @@ router.get(
   "/sessions",
   protect,
   getSessions
+);
+
+router.get(
+  "/analytics",
+  protect,
+  getAnalytics
 );
 
 module.exports = router;

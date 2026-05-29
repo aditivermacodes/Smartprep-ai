@@ -5,14 +5,13 @@ import ReactMarkdown from "react-markdown";
 
 function ATSScore() {
 
-  const [analysis, setAnalysis] =
-    useState("");
+  const [analysis, setAnalysis] = useState("");
 
-  const [loading, setLoading] =
-    useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [file, setFile] =
-    useState(null);
+  const [file, setFile] = useState(null);
+
+  const [score, setScore] = useState(null);
 
   // =========================
   // ANALYZE RESUME
@@ -53,6 +52,11 @@ function ATSScore() {
       );
 
       setAnalysis(res.data.analysis);
+      const match = res.data.analysis.match(/(\d{1,3})\/100/);
+
+      if(match) {
+        setScore(match[1]);
+      }
 
     } catch (error) {
 
@@ -71,7 +75,7 @@ function ATSScore() {
   const removeFile = () => {
 
     setFile(null);
-
+    setScore(null);
     setAnalysis("");
   };
 
@@ -229,6 +233,65 @@ function ATSScore() {
                 <div className="w-4 h-4 bg-gray-500 rounded-full animate-bounce delay-100"></div>
 
                 <div className="w-4 h-4 bg-gray-500 rounded-full animate-bounce delay-200"></div>
+
+              </div>
+
+            </div>
+          )
+        }
+        {
+          score && (
+
+            <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-200 mb-10">
+
+              <div className="flex flex-col items-center justify-center">
+
+                <div className="relative w-48 h-48 rounded-full border-[12px] border-black flex items-center justify-center shadow-lg">
+
+                  <div className="text-center">
+
+                    <h2 className="text-5xl font-bold">
+
+                      {score}
+
+                    </h2>
+
+                    <p className="text-gray-500 mt-2">
+
+                      ATS Score
+
+                    </p>
+
+                  </div>
+
+                </div>
+
+                <div className="w-full mt-8">
+
+                  <div className="w-full bg-gray-200 rounded-full h-5 overflow-hidden">
+
+                    <div
+                      className="bg-black h-5 transition-all duration-1000"
+                      style={{
+                        width: `${score}%`,
+                      }}
+                    ></div>
+
+                  </div>
+
+                </div>
+
+                <p className="mt-4 text-gray-600 text-lg">
+
+                  {
+                    score >= 80
+                      ? "Excellent Resume 🚀"
+                      : score >= 60
+                      ? "Good Resume 👍"
+                      : "Needs Improvement 📈"
+                  }
+
+                </p>
 
               </div>
 

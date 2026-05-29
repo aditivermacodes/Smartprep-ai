@@ -2,6 +2,7 @@ import { useState } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
+import jsPDF from "jspdf";
 
 function ATSScore() {
 
@@ -22,19 +23,12 @@ function ATSScore() {
     if (!file) return;
 
     try {
-
       setLoading(true);
 
-      const token =
-        localStorage.getItem("token");
+      const token = localStorage.getItem("token");
+      const formData = new FormData();
 
-      const formData =
-        new FormData();
-
-      formData.append(
-        "resume",
-        file
-      );
+      formData.append("resume",file);
 
       const res = await axios.post(
 
@@ -53,20 +47,31 @@ function ATSScore() {
 
       setAnalysis(res.data.analysis);
       const match = res.data.analysis.match(/(\d{1,3})\/100/);
-
       if(match) {
         setScore(match[1]);
       }
 
     } catch (error) {
-
       console.log(error);
-
     } finally {
-
       setLoading(false);
     }
   };
+
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+
+    const lines = doc.splitTextToSize(analysis, 180);
+
+    //TITLE
+    doc.setFontSize(22);
+    doc.text("ATS Resume Report", 20, 20);
+    //CONTENT
+    doc.setFontSize(12);
+    doc.text(lines, 20, 40);
+    //DOWNLOAD
+    doc.save("ats-resume-report.pdf");
+  }
 
   // =========================
   // REMOVE FILE
@@ -297,6 +302,20 @@ function ATSScore() {
 
             </div>
           )
+        }
+
+        {
+          analysis && (
+
+            <div className="flex justify-center mb-8">
+              <button
+                onClick={downloadPDF}
+                className = "bg-black hover:bg-gray-800 transition text-white px-8 py-4 rounded-2xl shadow-md font-semibold"
+                >
+                  Download PDF Report
+              </button>
+            </div>
+        )
         }
 
         {/* ANALYSIS */}

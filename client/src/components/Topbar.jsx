@@ -1,49 +1,106 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function Topbar() {
+
+  const navigate = useNavigate();
+
+  // =========================
+  // DARK MODE
+  // =========================
+
+  const [darkMode, setDarkMode] =
+    useState(
+
+      localStorage.getItem("theme") === "dark"
+    );
+
+  useEffect(() => {
+
+    if (darkMode) {
+
+      document.documentElement.classList.add("dark");
+
+      localStorage.setItem(
+        "theme",
+        "dark"
+      );
+
+    } else {
+
+      document.documentElement.classList.remove("dark");
+
+      localStorage.setItem(
+        "theme",
+        "light"
+      );
+    }
+
+  }, [darkMode]);
+
+  // =========================
+  // LOGOUT
+  // =========================
 
   const logout = () => {
 
     localStorage.removeItem("token");
 
-    window.location.href = "/";
+    navigate("/");
   };
 
   return (
 
-    <div className="bg-white shadow-md rounded-2xl px-8 py-5 flex justify-between items-center mb-8">
+    <div className="w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-8 py-5 flex items-center justify-between transition-all duration-300">
 
       {/* LEFT */}
 
       <div>
 
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
+
           SmartPrep AI
+
         </h1>
 
-        <p className="text-gray-500 mt-1">
-          Welcome back 👋
+        <p className="text-gray-500 dark:text-gray-400 mt-1">
+
+          AI-Powered Interview Preparation Platform
+
         </p>
 
       </div>
 
       {/* RIGHT */}
 
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-4">
 
-        {/* AVATAR */}
+        {/* DARK MODE */}
 
-        <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-lg">
+        <button
+          onClick={() =>
+            setDarkMode(!darkMode)
+          }
+          className="bg-gray-200 dark:bg-gray-800 dark:text-white px-5 py-3 rounded-2xl font-semibold transition hover:scale-105"
+        >
 
-          A
+          {
+            darkMode
+              ? "☀️ Light"
+              : "🌙 Dark"
+          }
 
-        </div>
+        </button>
 
         {/* LOGOUT */}
 
         <button
           onClick={logout}
-          className="bg-black hover:bg-gray-800 transition text-white px-5 py-3 rounded-xl"
+          className="bg-black hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 text-white px-5 py-3 rounded-2xl font-semibold transition hover:scale-105"
         >
+
           Logout
+
         </button>
 
       </div>

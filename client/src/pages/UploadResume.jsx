@@ -79,7 +79,7 @@ function UploadResume() {
 
     <DashboardLayout>
 
-      <div className="min-h-screen bg-gray-100 flex flex-col items-center p-10">
+      <div className="min-h-screen bg-gray-100 flex flex-col items-center p-10 dark:">
 
       <h1 className="text-4xl font-bold mb-8">
         SmartPrep AI

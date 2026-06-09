@@ -285,7 +285,7 @@ function ATSScore() {
 
                 </div>
 
-                <p className="mt-4 text-gray-600 text-lg">
+                <p className="mt-4 text-gray-600 dark:text-gray-300 text-lg">
 
                   {
                     score >= 80
@@ -309,7 +309,7 @@ function ATSScore() {
             <div className="flex justify-center mb-8">
               <button
                 onClick={downloadPDF}
-                className = "bg-black hover:bg-gray-800 transition text-white px-8 py-4 rounded-2xl shadow-md font-semibold"
+                className = "bg-black dark:bg-gray-700 hover:bg-gray-800 transition text-white dark:text-gray-300 dark:hover:bg-gray-600 px-8 py-4 rounded-2xl shadow-md font-semibold"
                 >
                   Download PDF Report
               </button>

@@ -83,7 +83,7 @@ function Dashboard() {
 
         <div className="flex items-center justify-center h-[70vh]">
 
-          <div className="text-2xl font-semibold animate-pulse">
+          <div className="text-2xl font-semibold animate-pulse text-gray-900 dark:text-white">
 
             Loading Dashboard...
 
@@ -103,13 +103,13 @@ function Dashboard() {
 
       <div className="mb-10">
 
-        <h2 className="text-5xl font-bold tracking-tight">
+        <h2 className="text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
 
           Dashboard
 
         </h2>
 
-        <p className="text-gray-500 mt-3 text-lg">
+        <p className="text-gray-500 dark:text-gray-300 mt-3 text-lg">
 
           Track your AI interview preparation journey.
 
@@ -128,15 +128,15 @@ function Dashboard() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
 
-              <div className="bg-white p-7 rounded-3xl shadow-md hover:shadow-xl transition">
+              <div className="bg-white dark:bg-gray-800 p-7 rounded-3xl shadow-md hover:shadow-xl transition border border-gray-200 dark:border-gray-700">
 
-                <p className="text-gray-500 text-sm">
+                <p className="text-gray-500 dark:text-gray-400 text-sm">
 
                   Total Interviews
 
                 </p>
 
-                <h3 className="text-5xl font-bold mt-4">
+                <h3 className="text-5xl font-bold mt-4 text-gray-900 dark:text-white">
 
                   {analytics.totalInterviews}
 
@@ -144,15 +144,15 @@ function Dashboard() {
 
               </div>
 
-              <div className="bg-white p-7 rounded-3xl shadow-md hover:shadow-xl transition">
+              <div className="bg-white dark:bg-gray-800 p-7 rounded-3xl shadow-md hover:shadow-xl transition border border-gray-200 dark:border-gray-700">
 
-                <p className="text-gray-500 text-sm">
+                <p className="text-gray-500 dark:text-gray-400 text-sm">
 
                   Total Messages
 
                 </p>
 
-                <h3 className="text-5xl font-bold mt-4">
+                <h3 className="text-5xl font-bold mt-4 text-gray-900 dark:text-white">
 
                   {analytics.totalMessages}
 
@@ -160,15 +160,15 @@ function Dashboard() {
 
               </div>
 
-              <div className="bg-white p-7 rounded-3xl shadow-md hover:shadow-xl transition">
+              <div className="bg-white dark:bg-gray-800 p-7 rounded-3xl shadow-md hover:shadow-xl transition border border-gray-200 dark:border-gray-700">
 
-                <p className="text-gray-500 text-sm">
+                <p className="text-gray-500 dark:text-gray-400 text-sm">
 
                   Average Messages
 
                 </p>
 
-                <h3 className="text-5xl font-bold mt-4">
+                <h3 className="text-5xl font-bold mt-4 text-gray-900 dark:text-white">
 
                   {analytics.averageMessages}
 
@@ -180,13 +180,13 @@ function Dashboard() {
 
             {/* CHART */}
 
-            <div className="bg-white p-8 rounded-3xl shadow-md mb-12">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-md mb-12 border border-gray-200 dark:border-gray-700">
 
               <div className="flex justify-between items-center mb-8">
 
                 <div>
 
-                  <h3 className="text-3xl font-bold">
+                  <h3 className="text-3xl font-bold text-gray-900 dark:text-white">
 
                     Interview Activity
 
@@ -242,13 +242,13 @@ function Dashboard() {
 
       <div className="mb-8">
 
-        <h3 className="text-3xl font-bold">
+        <h3 className="text-3xl font-bold text-gray-900 dark:text-white">
 
           Recent Sessions
 
         </h3>
 
-        <p className="text-gray-500 mt-2">
+        <p className="text-gray-500 dark:text-gray-300 mt-2">
 
           Your latest AI-generated interview sessions.
 
@@ -259,15 +259,15 @@ function Dashboard() {
       {
         history.length === 0 ? (
 
-          <div className="bg-white p-12 rounded-3xl shadow-md text-center">
+          <div className="bg-white dark:bg-gray-800 p-12 rounded-3xl shadow-md text-center border border-gray-200 dark:border-gray-700">
 
-            <h3 className="text-2xl font-bold mb-3">
+            <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">
 
               No Sessions Yet
 
             </h3>
 
-            <p className="text-gray-500">
+            <p className="text-gray-500 dark:text-gray-300">
 
               Start an AI interview to see your
               history here.
@@ -285,12 +285,12 @@ function Dashboard() {
 
                 <div
                   key={item._id}
-                  className="bg-white p-7 rounded-3xl shadow-md hover:shadow-xl transition"
+                  className="bg-white dark:bg-gray-800 p-7 rounded-3xl shadow-md hover:shadow-xl transition border border-gray-200 dark:border-gray-700"
                 >
 
                   <div className="flex justify-between items-center mb-5">
 
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
 
                       {
                         new Date(
@@ -308,7 +308,7 @@ function Dashboard() {
 
                   </div>
 
-                  <div className="whitespace-pre-wrap text-gray-700 leading-7">
+                  <div className="whitespace-pre-wrap text-gray-700 dark:text-gray-200 leading-7">
 
                     {item.questions.slice(0, 300)}...
 

@@ -101,6 +101,36 @@ function Home() {
           </div>
 
         </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24">
+
+          <div className="text-center">
+            <h3 className="text-5xl font-bold text-blue-500">
+              AI
+            </h3>
+            <p className="mt-2 text-gray-500 dark:text-gray-300">
+              Powered Interviews
+            </p>
+          </div>
+
+          <div className="text-center">
+            <h3 className="text-5xl font-bold text-blue-500">
+              ATS
+            </h3>
+            <p className="mt-2 text-gray-500 dark:text-gray-300">
+              Resume Analysis
+            </p>
+          </div>
+
+          <div className="text-center">
+            <h3 className="text-5xl font-bold text-blue-500">
+              24/7
+            </h3>
+            <p className="mt-2 text-gray-500 dark:text-gray-300">
+              Practice Anytime
+            </p>
+          </div>
+
+        </div>
 
       </div>
 

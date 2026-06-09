@@ -110,13 +110,13 @@ Tell me about yourself.`,
 
         <div className="mb-8">
 
-          <h2 className="text-5xl font-bold tracking-tight">
+          <h2 className="text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
 
             AI Mock Interview
 
           </h2>
 
-          <p className="text-gray-500 mt-3 text-lg">
+          <p className="text-gray-500 dark:text-gray-300 mt-3 text-lg">
 
             Practice realistic AI-powered technical interviews.
 
@@ -126,7 +126,7 @@ Tell me about yourself.`,
 
         {/* CHAT CONTAINER */}
 
-        <div className="flex-1 bg-gradient-to-b from-gray-50 to-white rounded-3xl shadow-xl border border-gray-200 p-6 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
+        <div className="flex-1 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 overflow-y-auto">
 
           {/* EMPTY STATE */}
 
@@ -135,15 +135,15 @@ Tell me about yourself.`,
 
               <div className="flex justify-center mb-10">
 
-                <div className="bg-white border border-gray-200 shadow-md rounded-3xl px-8 py-6 text-center max-w-xl">
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md rounded-3xl px-8 py-6 text-center max-w-xl">
 
-                  <h3 className="text-2xl font-bold mb-3">
+                  <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">
 
                     Ready for your interview?
 
                   </h3>
 
-                  <p className="text-gray-500 leading-7">
+                  <p className="text-gray-500 dark:text-gray-300 leading-7">
 
                     Answer naturally and the AI will evaluate your responses,
                     provide feedback, and continue the interview.
@@ -184,7 +184,7 @@ Tell me about yourself.`,
                     className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shadow-md ${
                       msg.role === "user"
                         ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white"
-                        : "bg-black text-white"
+                        : "bg-black dark:bg-white text-white dark:text-black"
                     }`}
                   >
 
@@ -195,10 +195,10 @@ Tell me about yourself.`,
                   {/* MESSAGE */}
 
                   <div
-                    className={`max-w-[80%] px-6 py-5 rounded-3xl leading-8 shadow-md transition-all prose prose-sm max-w-none ${
+                    className={`max-w-[80%] px-6 py-5 rounded-3xl leading-8 shadow-md transition-all prose prose-sm dark:prose-invert max-w-none ${
                       msg.role === "user"
                         ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white ml-auto"
-                        : "bg-white border border-gray-200 text-gray-800"
+                        : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white"
                     }`}
                   >
 
@@ -240,7 +240,7 @@ Tell me about yourself.`,
 
                   {/* AI AVATAR */}
 
-                  <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center text-sm font-bold shadow-md">
+                  <div className="w-10 h-10 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center text-sm font-bold shadow-md">
 
                     AI
 
@@ -248,7 +248,7 @@ Tell me about yourself.`,
 
                   {/* TYPING */}
 
-                  <div className="bg-white border border-gray-200 shadow-md px-6 py-5 rounded-3xl">
+                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md px-6 py-5 rounded-3xl">
 
                     <div className="flex items-center gap-2">
 
@@ -274,7 +274,7 @@ Tell me about yourself.`,
 
         {/* INPUT SECTION */}
 
-        <div className="flex gap-4 mt-6 bg-white p-4 rounded-3xl shadow-lg border border-gray-200">
+        <div className="flex gap-4 mt-6 bg-white dark:bg-gray-800 p-4 rounded-3xl shadow-lg border border-gray-200 dark:border-gray-700">
 
           <input
             type="text"
@@ -291,7 +291,7 @@ Tell me about yourself.`,
               setInput(e.target.value)
             }
             placeholder="Type your answer..."
-            className="flex-1 bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="flex-1 bg-gray-50 dark:bg-gray-900 dark:text-white border border-gray-200 dark:border-gray-600 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-blue-500 transition"
           />
 
           <button

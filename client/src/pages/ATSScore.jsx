@@ -94,13 +94,13 @@ function ATSScore() {
 
         <div className="mb-10">
 
-          <h2 className="text-5xl font-bold tracking-tight">
+          <h2 className="text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
 
             ATS Resume Analyzer
 
           </h2>
 
-          <p className="text-gray-500 mt-3 text-lg">
+          <p className="text-gray-500 dark:text-gray-200 mt-3 text-lg">
 
             Analyze your resume using AI-powered ATS scoring.
 
@@ -110,14 +110,13 @@ function ATSScore() {
 
         {/* INPUT CARD */}
 
-        <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-200 mb-10">
+        <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-600 mb-10">
 
           <div className="space-y-6">
 
             {/* FILE UPLOAD */}
 
-            <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-gray-300 rounded-3xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition">
-
+            <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-3xl cursor-pointer bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
               <div className="flex flex-col items-center justify-center">
 
                 <p className="text-4xl mb-4">
@@ -126,13 +125,13 @@ function ATSScore() {
 
                 </p>
 
-                <p className="text-xl font-semibold text-gray-700">
+                <p className="text-xl font-semibold text-gray-700 dark:text-white">
 
                   Upload Resume PDF
 
                 </p>
 
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">
 
                   Click or drag your resume here
 
@@ -165,17 +164,17 @@ function ATSScore() {
             {
               file && (
 
-                <div className="bg-gray-100 border border-gray-200 rounded-2xl p-5 flex items-center justify-between">
+                <div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-2xl p-5 flex items-center justify-between">
 
                   <div>
 
-                    <p className="font-semibold text-lg">
+                    <p className="font-semibold text-lg dark:text-white">
 
                       {file.name}
 
                     </p>
 
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">
 
                       PDF Resume Ready
 
@@ -229,7 +228,7 @@ function ATSScore() {
         {
           loading && (
 
-            <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-200 flex justify-center mb-10">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-600 flex justify-center mb-10">
 
               <div className="flex items-center gap-3">
 
@@ -247,21 +246,21 @@ function ATSScore() {
         {
           score && (
 
-            <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-200 mb-10">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-600 mb-10">
 
               <div className="flex flex-col items-center justify-center">
 
-                <div className="relative w-48 h-48 rounded-full border-[12px] border-black flex items-center justify-center shadow-lg">
+                <div className="relative w-48 h-48 rounded-full border-[12px] border-black dark:border-white flex items-center justify-center shadow-lg">
 
                   <div className="text-center">
 
-                    <h2 className="text-5xl font-bold">
+                    <h2 className="text-5xl font-bold dark:text-white">
 
                       {score}
 
                     </h2>
 
-                    <p className="text-gray-500 mt-2">
+                    <p className="mt-4 text-gray-600 dark:text-gray-300 text-lg">
 
                       ATS Score
 
@@ -323,9 +322,9 @@ function ATSScore() {
         {
           analysis && (
 
-            <div className="bg-white p-10 rounded-3xl shadow-xl border border-gray-200">
+            <div className="bg-white dark:bg-gray-800 p-10 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-600">
 
-              <div className="prose max-w-none">
+              <div className="prose dark:prose-invert max-w-none">
 
                 <ReactMarkdown>
 

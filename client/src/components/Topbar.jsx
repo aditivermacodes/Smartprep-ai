@@ -1,42 +1,9 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Topbar() {
+function Topbar({ darkMode, setDarkMode, setSidebarOpen }) {
 
   const navigate = useNavigate();
 
-  // =========================
-  // DARK MODE
-  // =========================
-
-  const [darkMode, setDarkMode] =
-    useState(
-
-      localStorage.getItem("theme") === "dark"
-    );
-
-  useEffect(() => {
-
-    if (darkMode) {
-
-      document.documentElement.classList.add("dark");
-
-      localStorage.setItem(
-        "theme",
-        "dark"
-      );
-
-    } else {
-
-      document.documentElement.classList.remove("dark");
-
-      localStorage.setItem(
-        "theme",
-        "light"
-      );
-    }
-
-  }, [darkMode]);
 
   // =========================
   // LOGOUT
@@ -55,21 +22,28 @@ function Topbar() {
 
       {/* LEFT */}
 
-      <div>
+      <div className="flex items-center gap-2 md:gap-4">
 
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="lg:hidden text-2xl text-gray-900 dark:text-white"
+        >
+          ☰
+        </button>
 
-          SmartPrep AI
+        <div>
 
-        </h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
+            SmartPrep AI
+          </h1>
 
-        <p className="text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-gray-500 dark:text-gray-400 mt-1">
+            AI-Powered Interview Preparation Platform
+          </p>
 
-          AI-Powered Interview Preparation Platform
+        </div>
 
-        </p>
-
-      </div>
+      </div>  
 
       {/* RIGHT */}
 
@@ -81,7 +55,7 @@ function Topbar() {
           onClick={() =>
             setDarkMode(!darkMode)
           }
-          className="bg-gray-200 dark:bg-gray-800 dark:text-white px-5 py-3 rounded-2xl font-semibold transition hover:scale-105"
+          className="bg-gray-200 dark:bg-gray-800 dark:text-white px-3 md:px-5 py-2 md:py-3 rounded-2xl font-semibold transition hover:scale-105"
         >
 
           {
@@ -96,7 +70,7 @@ function Topbar() {
 
         <button
           onClick={logout}
-          className="bg-black hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 text-white px-5 py-3 rounded-2xl font-semibold transition hover:scale-105"
+          className="bg-black hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 text-white px-3 md:px-5 py-2 md:py-3 rounded-2xl font-semibold transition hover:scale-105"
         >
 
           Logout

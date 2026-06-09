@@ -15,6 +15,8 @@ function DashboardLayout({ children }) {
       localStorage.getItem("theme") === "dark"
     );
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   useEffect(() => {
 
     if (darkMode) {
@@ -44,7 +46,10 @@ function DashboardLayout({ children }) {
 
       {/* SIDEBAR */}
 
-      <Sidebar />
+      <Sidebar 
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
 
       {/* MAIN CONTENT */}
 
@@ -55,6 +60,7 @@ function DashboardLayout({ children }) {
         <Topbar
           darkMode={darkMode}
           setDarkMode={setDarkMode}
+          setSidebarOpen={setSidebarOpen}
         />
 
         {/* PAGE CONTENT */}

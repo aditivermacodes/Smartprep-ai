@@ -1,19 +1,21 @@
 import { useState } from "react";
 import axios from "axios";
 import DashboardLayout from "../layouts/DashboardLayout";
+import ReactMarkdown from "react-markdown";
 
 function UploadResume() {
 
   const [file, setFile] = useState(null);
-
   const [questions, setQuestions] = useState("");
-
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState(false);
 
   const handleUpload = async () => {
 
     if (!file) {
-      alert("Please select a resume");
+      setError(true);
+      setMessage("Please select a resume");
       return;
     }
 
@@ -66,8 +68,8 @@ function UploadResume() {
     } catch (error) {
 
       console.log(error);
-
-      alert("Error generating questions");
+      setError(true);
+      setMessage("Error generating questions");
 
     } finally {
 
@@ -79,13 +81,13 @@ function UploadResume() {
 
     <DashboardLayout>
 
-      <div className="min-h-screen bg-gray-100 flex flex-col items-center p-10 dark:">
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-950 flex flex-col items-center p-10">
 
-      <h1 className="text-4xl font-bold mb-8">
+      <h1 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white">
         SmartPrep AI
       </h1>
 
-      <div className="bg-white shadow-xl p-10 rounded-2xl w-full max-w-2xl">
+      <div className="bg-white dark:bg-gray-700 shadow-xl p-10 rounded-2xl w-full max-w-2xl border border-gray-200 dark:border-gray-700">
 
         <input
           type="file"
@@ -93,6 +95,23 @@ function UploadResume() {
           onChange={(e) => setFile(e.target.files[0])}
           className="mb-6"
         />
+
+        {
+          message && (
+
+            <div
+              className={`mt-6 p-4 rounded-xl text-center font-medium w-full max-w-2xl ${
+                error
+                  ? "bg-red-100 text-red-700"
+                  : "bg-green-100 text-green-700"
+              }`}
+            >
+
+              {message}
+
+            </div>
+          )
+        }
 
         <button
           onClick={handleUpload}
@@ -109,7 +128,7 @@ function UploadResume() {
 
           <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
 
-          <p className="mt-4 text-lg font-semibold">
+          <p className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
             AI is generating interview questions...
           </p>
 
@@ -120,14 +139,16 @@ function UploadResume() {
       {
         questions && (
 
-          <div  className="mt-10 w-full max-w-4xl bg-white shadow-xl p-10 rounded-2xl whitespace-pre-wrap">
+          <div  className="mt-10 w-full max-w-4xl bg-white dark:bg-gray-800 shadow-xl p-10 rounded-2xl whitespace-pre-wrap border border-gray-200 dark:border-gray-700">
 
-            <h2 className="text-4xl font-bold mb-8">
+            <h2 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white">
               AI Interview Questions
             </h2>
 
-            <div className="leading-8 text-gray-700">
+            <div className="prose dark:prose-invert max-w-none">
+              <ReactMarkdown>
               {questions}
+              </ReactMarkdown>
             </div>
 
           </div>

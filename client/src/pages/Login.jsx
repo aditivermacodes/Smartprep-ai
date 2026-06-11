@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import PublicLayout from "../layouts/PublicLayout";
 import {
   useNavigate,
   Link,
@@ -9,6 +8,8 @@ import {
 function Login() {
 
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -39,18 +40,19 @@ function Login() {
         res.data.token
       );
 
-      alert("Login Successful");
+      setError(false);
+      setMessage("Login successful!");
 
-      navigate("/dashboard");
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1000);
 
     } catch (error) {
-
-      alert(
-        error.response?.data?.message ||
-        "Login failed"
-      );
+      setError(true);
+      setMessage(error.response?.data?.message || "Login failed. Please try again.");
     }
   };
+
 
   return (
 
@@ -60,10 +62,10 @@ function Login() {
 
       <form
         onSubmit={handleSubmit}
-        className="w-96 p-8 shadow-lg rounded-xl bg-white"
+        className="w-96 p-8 shadow-lg rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
       >
 
-        <h2 className="text-3xl font-bold mb-6 text-center">
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">
           Login
         </h2>
 
@@ -72,7 +74,7 @@ function Login() {
           name="email"
           value={formData.email}
           placeholder="Email"
-          className="w-full border p-3 mb-4 rounded"
+          className="w-full border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white bg-white dark:bg-gray-800 p-3 mb-4 rounded"
           onChange={handleChange}
           required
         />
@@ -83,19 +85,34 @@ function Login() {
           autoComplete="current-password"
           value={formData.password}
           placeholder="Password"
-          className="w-full border p-3 mb-4 rounded"
+          className="w-full border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white bg-white dark:bg-gray-800 p-3 mb-4 rounded"
           onChange={handleChange}
           required
         />
 
+        {
+          message && (
+
+            <div
+              className={`mb-4 p-3 rounded-lg text-center font-medium ${
+                error
+                  ? "bg-red-100 text-red-700"
+                  : "bg-green-100 text-green-700"
+              }`}
+            >
+              {message}
+            </div>
+          )
+        }
+
         <button
           type="submit"
-          className="bg-black text-white w-full p-3 rounded hover:bg-gray-800 transition"
+          className="bg-black text-white w-full p-3 rounded hover:bg-gray-800 dark:hover:bg-gray-600 transition"
         >
           Login
         </button>
 
-        <p className="mt-4 text-center text-gray-600">
+        <p className="text-center text-gray-500 dark:text-gray-300 mt-4">
 
           Don't have an account?{" "}
 

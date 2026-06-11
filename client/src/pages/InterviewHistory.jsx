@@ -58,11 +58,11 @@ function InterviewHistory() {
 
       <div className="mb-10">
 
-        <h2 className="text-4xl font-bold">
+        <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
           Interview Sessions
         </h2>
 
-        <p className="text-gray-500 mt-2">
+        <p className="text-gray-500 dark:text-gray-300 mt-2">
           Review your previous AI interviews.
         </p>
 
@@ -75,7 +75,7 @@ function InterviewHistory() {
 
             <div
               key={session._id}
-              className="bg-white p-6 rounded-2xl shadow-md"
+              className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700"
             >
 
               {/* HEADER */}
@@ -84,7 +84,7 @@ function InterviewHistory() {
 
                 <div>
 
-                  <p className="text-gray-500 mb-2">
+                  <p className="text-gray-500 dark:text-gray-300 mb-2">
 
                     {
                       new Date(
@@ -94,7 +94,7 @@ function InterviewHistory() {
 
                   </p>
 
-                  <p className="font-semibold">
+                  <p className="font-semibold text-gray-900 dark:text-white">
 
                     Messages:
                     {" "}
@@ -135,8 +135,8 @@ function InterviewHistory() {
                           key={index}
                           className={`p-4 rounded-xl ${
                             msg.role === "user"
-                              ? "bg-blue-600 text-white ml-auto max-w-[80%]"
-                              : "bg-gray-100 text-gray-800 max-w-[80%]"
+                              ? "bg-blue-600 text-white ml-auto max-w-[90%] md:max-w-[80%]"
+                              : "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100 max-w-[90%] md:max-w-[80%]"
                           }`}
                         >
 

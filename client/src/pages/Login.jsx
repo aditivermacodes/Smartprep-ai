@@ -10,6 +10,7 @@ function Login() {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -29,6 +30,7 @@ function Login() {
     e.preventDefault();
 
     try {
+      setLoading(true);
 
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/auth/login`,
@@ -50,6 +52,9 @@ function Login() {
     } catch (error) {
       setError(true);
       setMessage(error.response?.data?.message || "Login failed. Please try again.");
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -107,9 +112,26 @@ function Login() {
 
         <button
           type="submit"
-          className="bg-black text-white w-full p-3 rounded hover:bg-gray-800 dark:hover:bg-gray-600 transition"
+          disabled={loading}
+          className={`w-full p-3 rounded transition text-white ${
+            loading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-black hover:bg-gray-800 dark:hover:bg-gray-600"
+          }`}
         >
-          Login
+          {
+            loading ? (
+              <div className="flex items-center justify-center gap-2">
+
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+
+                <span>Connecting...</span>
+
+              </div>
+            ) : (
+              "Login"
+            )
+          }
         </button>
 
         <p className="text-center text-gray-500 dark:text-gray-300 mt-4">

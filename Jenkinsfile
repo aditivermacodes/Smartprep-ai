@@ -91,6 +91,9 @@ pipeline {
     }
 
     post {
+        always {
+            bat 'docker logout'
+        }
         success {
             echo 'SmartPrep AI CI/CD Pipeline completed successfully!'
         }

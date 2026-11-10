@@ -80,33 +80,22 @@ pipeline {
         }
 
         
-        stage('Docker Hub Login and Push') {
+        
+        stage('Test Docker Hub Authentication') {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-credentials',
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_TOKEN'
                 )]) {
-                    script {
-                        try {
-                            bat '''
-                                @echo off
-                                powershell.exe -NoProfile -NonInteractive -Command "$env:DOCKER_TOKEN | docker login --username $env:DOCKER_USER --password-stdin"
-                            '''
-
-                            bat 'docker push aditivermacodes/smartprep-server:%BUILD_NUMBER%'
-                            bat 'docker push aditivermacodes/smartprep-server:latest'
-
-                            bat 'docker push aditivermacodes/smartprep-client:%BUILD_NUMBER%'
-                            bat 'docker push aditivermacodes/smartprep-client:latest'
-                        }
-                        finally {
-                            bat 'docker logout'
-                        }
-                    }
+                    bat '''
+                        @echo off
+                        powershell.exe -NoProfile -NonInteractive -Command "$env:DOCKER_TOKEN | docker login --username $env:DOCKER_USER --password-stdin"
+                    '''
                 }
             }
         }
+
     }
 
     post {

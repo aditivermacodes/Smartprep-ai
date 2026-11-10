@@ -79,23 +79,15 @@ pipeline {
             }
         }
 
-        
-
-        stage('Test Docker Hub Authentication') {
+        stage('Push Docker Images') {
             steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-credentials',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_TOKEN'
-                )]) {
-                    bat '''
-                        @echo off
-                        powershell.exe -NoProfile -NonInteractive -Command "$psi = New-Object System.Diagnostics.ProcessStartInfo; $psi.FileName = 'docker'; $psi.Arguments = 'login --username ' + $env:DOCKER_USER + ' --password-stdin'; $psi.UseShellExecute = $false; $psi.RedirectStandardInput = $true; $p = [System.Diagnostics.Process]::Start($psi); $p.StandardInput.WriteLine($env:DOCKER_TOKEN); $p.StandardInput.Close(); $p.WaitForExit(); exit $p.ExitCode"
-                    '''
-                }
+                bat 'docker push aditivermacodes/smartprep-server:%BUILD_NUMBER%'
+                bat 'docker push aditivermacodes/smartprep-server:latest'
+
+                bat 'docker push aditivermacodes/smartprep-client:%BUILD_NUMBER%'
+                bat 'docker push aditivermacodes/smartprep-client:latest'
             }
         }
-
     }
 
     post {

@@ -80,7 +80,7 @@ pipeline {
         }
 
         
-        
+
         stage('Test Docker Hub Authentication') {
             steps {
                 withCredentials([usernamePassword(
@@ -90,7 +90,7 @@ pipeline {
                 )]) {
                     bat '''
                         @echo off
-                        powershell.exe -NoProfile -NonInteractive -Command "$env:DOCKER_TOKEN | docker login --username $env:DOCKER_USER --password-stdin"
+                        powershell.exe -NoProfile -NonInteractive -Command "$psi = New-Object System.Diagnostics.ProcessStartInfo; $psi.FileName = 'docker'; $psi.Arguments = 'login --username ' + $env:DOCKER_USER + ' --password-stdin'; $psi.UseShellExecute = $false; $psi.RedirectStandardInput = $true; $p = [System.Diagnostics.Process]::Start($psi); $p.StandardInput.WriteLine($env:DOCKER_TOKEN); $p.StandardInput.Close(); $p.WaitForExit(); exit $p.ExitCode"
                     '''
                 }
             }

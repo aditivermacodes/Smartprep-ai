@@ -79,6 +79,7 @@ pipeline {
             }
         }
 
+        
         stage('Docker Hub Login and Push') {
             steps {
                 withCredentials([usernamePassword(
@@ -90,7 +91,7 @@ pipeline {
                         try {
                             bat '''
                                 @echo off
-                                echo %DOCKER_TOKEN% | docker login -u "%DOCKER_USER%" --password-stdin
+                                powershell.exe -NoProfile -NonInteractive -Command "$env:DOCKER_TOKEN | docker login --username $env:DOCKER_USER --password-stdin"
                             '''
 
                             bat 'docker push aditivermacodes/smartprep-server:%BUILD_NUMBER%'

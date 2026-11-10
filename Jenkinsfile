@@ -70,15 +70,51 @@ pipeline {
                 }
             }
         }
+
+        stage('Build Docker Images') {
+            steps {
+                bat 'docker build -t aditivermacodes/smartprep-server:%BUILD_NUMBER% -t aditivermacodes/smartprep-server:latest ./server'
+
+                bat 'docker build --build-arg VITE_API_URL=%VITE_API_URL% -t aditivermacodes/smartprep-client:%BUILD_NUMBER% -t aditivermacodes/smartprep-client:latest ./client'
+            }
+        }
+
+        stage('Docker Hub Login and Push') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-credentials',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_TOKEN'
+                )]) {
+                    script {
+                        try {
+                            bat '''
+                                @echo off
+                                echo %DOCKER_TOKEN% | docker login -u "%DOCKER_USER%" --password-stdin
+                            '''
+
+                            bat 'docker push aditivermacodes/smartprep-server:%BUILD_NUMBER%'
+                            bat 'docker push aditivermacodes/smartprep-server:latest'
+
+                            bat 'docker push aditivermacodes/smartprep-client:%BUILD_NUMBER%'
+                            bat 'docker push aditivermacodes/smartprep-client:latest'
+                        }
+                        finally {
+                            bat 'docker logout'
+                        }
+                    }
+                }
+            }
+        }
     }
 
     post {
         success {
-            echo 'SmartPrep AI CI Pipeline completed successfully!'
+            echo 'SmartPrep AI CI/CD Pipeline completed successfully!'
         }
 
         failure {
-            echo 'SmartPrep AI CI Pipeline failed. Check the Console Output.'
+            echo 'SmartPrep AI CI/CD Pipeline failed. Check the Console Output.'
         }
     }
 }
